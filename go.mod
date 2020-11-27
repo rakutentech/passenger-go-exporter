@@ -1,4 +1,4 @@
-module ghe.rakuten-it.com/SOK/passenger-go-exporter
+module github.com/rakutentech/passenger-go-exporter
 
 go 1.14
 

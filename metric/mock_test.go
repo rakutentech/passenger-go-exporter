@@ -7,7 +7,7 @@ package metric
 import (
 	"errors"
 
-	"ghe.rakuten-it.com/SOK/passenger-go-exporter/passenger"
+	"github.com/rakutentech/passenger-go-exporter/passenger"
 )
 
 // MockServer is mock that gets metrics.

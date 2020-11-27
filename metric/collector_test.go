@@ -7,8 +7,8 @@ package metric
 import (
 	"testing"
 
-	"ghe.rakuten-it.com/SOK/passenger-go-exporter/logging"
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/rakutentech/passenger-go-exporter/logging"
 	"github.com/stretchr/testify/assert"
 )
 

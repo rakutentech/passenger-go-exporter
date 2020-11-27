@@ -35,7 +35,7 @@ before running,you should mount passenger directory at `/sock` directory.
 ```
 root@842ff56c6f6f:/workspace# go build .
 root@842ff56c6f6f:/workspace# E2E=true go test ./test/e2e/
-ok      ghe.rakuten-it.com/SOK/passenger-go-exporter/test/e2e   0.056s
+ok      github.com/rakutentech/passenger-go-exporter/test/e2e   0.151s
 root@842ff56c6f6f:/workspace# 
 ```
 
@@ -43,11 +43,11 @@ root@842ff56c6f6f:/workspace#
 
 ```
 root@842ff56c6f6f:/workspace# go test -coverprofile=cover.out -cover ./...  && go tool cover -html=cover.out -o cover.html
-ok      ghe.rakuten-it.com/SOK/passenger-go-exporter    0.171s  coverage: 90.5% of statements
-ok      ghe.rakuten-it.com/SOK/passenger-go-exporter/logging    0.022s  coverage: 100.0% of statements
-ok      ghe.rakuten-it.com/SOK/passenger-go-exporter/metric     0.017s  coverage: 100.0% of statements
-ok      ghe.rakuten-it.com/SOK/passenger-go-exporter/passenger  0.039s  coverage: 67.7% of statements
-ok      ghe.rakuten-it.com/SOK/passenger-go-exporter/test/e2e   0.007s  coverage: [no statements]
+ok      github.com/rakutentech/passenger-go-exporter    0.039s  coverage: 90.5% of statements
+ok      github.com/rakutentech/passenger-go-exporter/logging    0.032s  coverage: 100.0% of statements
+ok      github.com/rakutentech/passenger-go-exporter/metric     0.010s  coverage: 100.0% of statements
+ok      github.com/rakutentech/passenger-go-exporter/passenger  0.011s  coverage: 67.7% of statements
+ok      github.com/rakutentech/passenger-go-exporter/test/e2e   0.007s  coverage: [no statements]
 root@842ff56c6f6f:/workspace# 
 ```
 
@@ -55,11 +55,11 @@ If passenger application started and mounted /sock directory,please set USE_PASS
 
 ```
 root@842ff56c6f6f:/workspace# USE_PASSENGER=true go test -coverprofile=cover.out -cover ./...  && go tool cover -html=cover.out -o cover.html
-ok      ghe.rakuten-it.com/SOK/passenger-go-exporter    0.035s  coverage: 90.5% of statements
-ok      ghe.rakuten-it.com/SOK/passenger-go-exporter/logging    0.012s  coverage: 100.0% of statements
-ok      ghe.rakuten-it.com/SOK/passenger-go-exporter/metric     0.028s  coverage: 100.0% of statements
-ok      ghe.rakuten-it.com/SOK/passenger-go-exporter/passenger  0.021s  coverage: 95.2% of statements
-ok      ghe.rakuten-it.com/SOK/passenger-go-exporter/test/e2e   0.005s  coverage: [no statements]
+ok      github.com/rakutentech/passenger-go-exporter    0.047s  coverage: 90.5% of statements
+ok      github.com/rakutentech/passenger-go-exporter/logging    0.028s  coverage: 100.0% of statements
+ok      github.com/rakutentech/passenger-go-exporter/metric     0.022s  coverage: 100.0% of statements
+ok      github.com/rakutentech/passenger-go-exporter/passenger  0.017s  coverage: 95.2% of statements
+ok      github.com/rakutentech/passenger-go-exporter/test/e2e   0.007s  coverage: [no statements]
 root@842ff56c6f6f:/workspace# 
 ```
 

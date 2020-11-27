@@ -7,11 +7,11 @@ package metric
 import (
 	"strings"
 
-	"ghe.rakuten-it.com/SOK/passenger-go-exporter/logging"
-	"ghe.rakuten-it.com/SOK/passenger-go-exporter/passenger"
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/rakutentech/passenger-go-exporter/logging"
+	"github.com/rakutentech/passenger-go-exporter/passenger"
 )
 
 // Collector implements the prometheus.Collector interface.

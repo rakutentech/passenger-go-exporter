@@ -9,12 +9,12 @@ import (
 	"fmt"
 	"net/http"
 
-	"ghe.rakuten-it.com/SOK/passenger-go-exporter/logging"
-	"ghe.rakuten-it.com/SOK/passenger-go-exporter/metric"
-	"ghe.rakuten-it.com/SOK/passenger-go-exporter/passenger"
 	"github.com/go-kit/kit/log/level"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/rakutentech/passenger-go-exporter/logging"
+	"github.com/rakutentech/passenger-go-exporter/metric"
+	"github.com/rakutentech/passenger-go-exporter/passenger"
 )
 
 var (
