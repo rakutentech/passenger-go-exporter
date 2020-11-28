@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: build
     runs-on: ubuntu-latest
     steps:
     - name: checkout
@@ -42,6 +42,15 @@ jobs:
           ghcr.io/${{ github.repository }}:latest
           ghcr.io/${{ github.repository }}:${{ env.TAG_VERSION }}
 
+  release:
+    name: release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
     - name: Set up Go
       uses: actions/setup-go@v2
       with:

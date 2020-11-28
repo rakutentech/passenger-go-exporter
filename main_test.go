@@ -19,6 +19,9 @@ import (
 )
 
 func TestRun(t *testing.T) {
+	if os.Getenv("GITHUB_RUN_ID") != "" {
+		t.Skip("This test not running at GitHub Action env")
+	}
 	os.Setenv("PASSENGER_INSTANCE_REGISTRY_DIR", "/sock")
 
 	statusc := make(chan string) //startup message channel.
