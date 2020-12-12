@@ -1,5 +1,5 @@
 // Copyright (c) 2020 Rakuten, Inc. All rights reserved.
-// Licensed under the MIt License.
+// Licensed under the MIT License.
 // License that can be found in the LICENSE file.
 
 package metric
