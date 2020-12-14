@@ -1,5 +1,5 @@
 // Copyright (c) 2020 Rakuten, Inc. All rights reserved.
-// Licensed under the MIt License.
+// Licensed under the MIT License.
 // License that can be found in the LICENSE file.
 
 package passenger
@@ -32,8 +32,14 @@ func (s *Passenger6Server) Metrics() (*PoolInfo, error) {
 	}
 	defer conn.Close()
 	req, err := http.NewRequest("GET", "/pool.xml", nil)
+	if err != nil {
+		return nil, err
+	}
+
 	req.SetBasicAuth("ro_admin", s.basicAuthPassword)
-	req.Write(conn)
+	if err = req.Write(conn); err != nil {
+		return nil, err
+	}
 	res, err := http.ReadResponse(bufio.NewReader(conn), req)
 	if err != nil {
 		return nil, err

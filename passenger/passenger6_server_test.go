@@ -1,5 +1,5 @@
 // Copyright (c) 2020 Rakuten, Inc. All rights reserved.
-// Licensed under the MIt License.
+// Licensed under the MIT License.
 // License that can be found in the LICENSE file.
 
 package passenger
@@ -77,8 +77,15 @@ func createDummyPassengerDir(dirname string) (string, string, error) {
 	if err != nil {
 		return "", "", err
 	}
-	ioutil.WriteFile(filepath.Join(passengerHome, "creation_finalized"), []byte{}, 0644)
-	ioutil.WriteFile(filepath.Join(passengerHome, "read_only_admin_password.txt"), []byte("dummy"), 0644)
+	err = ioutil.WriteFile(filepath.Join(passengerHome, "creation_finalized"), []byte{}, 0644)
+	if err != nil {
+		return "", "", err
+	}
+
+	err = ioutil.WriteFile(filepath.Join(passengerHome, "read_only_admin_password.txt"), []byte("dummy"), 0644)
+	if err != nil {
+		return "", "", err
+	}
 	return home, passengerHome, nil
 }
 
