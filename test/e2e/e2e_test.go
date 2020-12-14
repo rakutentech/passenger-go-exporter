@@ -79,8 +79,9 @@ func runExporter(t *testing.T) (*exec.Cmd, context.CancelFunc) {
 		t.Fatalf("Failed to run: %s", err.Error())
 	}
 	go func() {
-		exporter.Wait()
-		cancel() // send done message.
+		if err = exporter.Wait(); err != nil {
+			cancel()
+		}
 	}()
 
 WAIT_FOR:
