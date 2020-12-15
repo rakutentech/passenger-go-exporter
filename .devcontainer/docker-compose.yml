@@ -7,7 +7,7 @@ version: "3"
 services:
   # Update this to the name of the service you want to work with in your docker-compose.yml file
   go:
-    image: golang:1.14
+    image: golang:1.15
     # If you want add a non-root user to your Dockerfile, you can use the "remoteUser"
     # property in devcontainer.json to cause VS Code its sub-processes (terminals, tasks,
     # debugging) to execute as the user. Uncomment the next line if you want the entire
@@ -49,6 +49,6 @@ services:
     environment:
       - PASSENGER_INSTANCE_REGISTRY_DIR=/sock
     volumes:
-      - unix-sock:/sock # mysqldソケットファイルディレクトリを共有
+      - unix-sock:/sock
 volumes:
   unix-sock:
