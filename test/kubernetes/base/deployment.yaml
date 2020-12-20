@@ -41,16 +41,16 @@ spec:
               port: 3000
           env:
             - name: PASSENGER_INSTANCE_REGISTRY_DIR
-              value: /tmp
+              value: /tmp/ruby
           volumeMounts:
-            - mountPath: /tmp
+            - mountPath: /tmp/ruby
               name: tmp
         - name: passenger-exporter
           image: passenger-exporter
           imagePullPolicy: IfNotPresent
           env:
             - name: PASSENGER_INSTANCE_REGISTRY_DIR
-              value: /tmp
+              value: /tmp/ruby
           ports:
             - containerPort: 9768
               name: http
@@ -74,5 +74,5 @@ spec:
               cpu: 20m
               memory: 60Mi
           volumeMounts:
-            - mountPath: /tmp
+            - mountPath: /tmp/ruby
               name: tmp
