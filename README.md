@@ -18,7 +18,8 @@ A example is in [here](./test/kubernetes/).
 
 ### Sidecar Pattern
 
-Prometheus Go Exporter must be shared the directory specified by PASSENGER_INSTANCE_REGISTRY_DIR with passenger application.
+Container images can be pulled from [ghcr.io/rakutentech/passenger-go-exporter](https://github.com/orgs/rakutentech/packages/container/package/passenger-go-exporter).<br>
+Passsenger Go Exporter must be shared the directory specified by PASSENGER_INSTANCE_REGISTRY_DIR with passenger application.
 
 Passenger Application side defines `PASSENGER_INSTANCE_REGISTRY_DIR` environment varibles,
 and specify emptyDir volume.
@@ -33,18 +34,18 @@ Passenger Go Exporter side defines similarly.
         - name: example
           env:
             - name: PASSENGER_INSTANCE_REGISTRY_DIR
-              value: /tmp
+              value: /tmp/ruby
           volumeMounts:
-            - mountPath: /tmp
+            - mountPath: /tmp/ruby
               name: tmp
         - name: passenger-exporter
-          image: passenger-exporter
+          image: ghcr.io/rakutentech/passenger-go-exporter:v1.1.0
           imagePullPolicy: IfNotPresent
           env:
             - name: PASSENGER_INSTANCE_REGISTRY_DIR
-              value: /tmp
+              value: /tmp/ruby
           volumeMounts:
-            - mountPath: /tmp
+            - mountPath: /tmp/ruby
               name: tmp
 ```
 

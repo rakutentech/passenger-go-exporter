@@ -5,5 +5,5 @@ images:
     newName: PLEASE_CHANGE_VALUE
     newTag: PLEASE_CHANGE_VALUE
   - name: passenger-exporter
-    newName: PLEASE_CHANGE_VALUE 
-    newTag: PLEASE_CHANGE_VALUE
+    newName: ghcr.io/rakutentech/passenger-go-exporter 
+    newTag: v1.1.0
