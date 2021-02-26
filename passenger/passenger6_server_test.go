@@ -6,7 +6,6 @@ package passenger
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -69,20 +68,20 @@ func TestFindInstanceUsePassenger(t *testing.T) {
 }
 
 func createDummyPassengerDir(dirname string) (string, string, error) {
-	home, err := ioutil.TempDir(dirname, "go-unit.*")
+	home, err := os.MkdirTemp(dirname, "go-unit.*")
 	if err != nil {
 		return "", "", err
 	}
-	passengerHome, err := ioutil.TempDir(home, "passenger.*")
+	passengerHome, err := os.MkdirTemp(home, "passenger.*")
 	if err != nil {
 		return "", "", err
 	}
-	err = ioutil.WriteFile(filepath.Join(passengerHome, "creation_finalized"), []byte{}, 0644)
+	err = os.WriteFile(filepath.Join(passengerHome, "creation_finalized"), []byte{}, 0644)
 	if err != nil {
 		return "", "", err
 	}
 
-	err = ioutil.WriteFile(filepath.Join(passengerHome, "read_only_admin_password.txt"), []byte("dummy"), 0644)
+	err = os.WriteFile(filepath.Join(passengerHome, "read_only_admin_password.txt"), []byte("dummy"), 0644)
 	if err != nil {
 		return "", "", err
 	}
