@@ -6,7 +6,6 @@ package passenger
 
 import (
 	"bufio"
-	"io/ioutil"
 	"net"
 	"net/http"
 	"os"
@@ -86,7 +85,7 @@ func (f *Passenger6ServerFactory) NewInstance(homedir string) Server {
 		return nil
 	}
 	passFile := filepath.Join(homedir, "read_only_admin_password.txt")
-	bytes, err := ioutil.ReadFile(passFile)
+	bytes, err := os.ReadFile(passFile)
 	if err != nil {
 		return nil
 	}
@@ -122,7 +121,7 @@ func (f *Passenger6ServerFactory) FindInstance() Server {
 
 // findInstanceFirstOne searches a Passenger Instance.
 func (f *Passenger6ServerFactory) findInstanceFirstOne(dirname string) Server {
-	files, err := ioutil.ReadDir(dirname)
+	files, err := os.ReadDir(dirname)
 	if err != nil {
 		return nil
 	}

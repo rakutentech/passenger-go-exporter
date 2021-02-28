@@ -43,6 +43,7 @@ func TestNotFoundPassengerRun(t *testing.T) {
 
 	cmd, _ := runExporter(t)
 	assert.Equal(t, true, cmd.ProcessState.Exited())
+
 }
 
 // runExporter executes passenger-go-exporter.
@@ -63,13 +64,12 @@ func runExporter(t *testing.T) (*exec.Cmd, context.CancelFunc) {
 	if err != nil {
 		t.Fatalf("Failed to connect stderr pipe : %s", err.Error())
 	}
-	errScanner := bufio.NewScanner(stderr)
 	go func() {
+		errScanner := bufio.NewScanner(stderr)
 		for errScanner.Scan() {
 			fmt.Println(errScanner.Text())
 			if strings.Contains(errScanner.Text(), "Starting passenger-go-exporter") {
-				time.Sleep(time.Millisecond * 10)
-				statusc <- "starting"
+				statusc <- "started!"
 			}
 		}
 	}()
@@ -92,6 +92,10 @@ WAIT_FOR:
 			break WAIT_FOR
 		case <-ctx.Done():
 			break WAIT_FOR
+		default:
+			if exporter.ProcessState != nil && exporter.ProcessState.Exited() {
+				break WAIT_FOR
+			}
 		}
 	}
 	return exporter, cancel
