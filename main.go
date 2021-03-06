@@ -8,6 +8,7 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/go-kit/kit/log/level"
 	"github.com/prometheus/client_golang/prometheus"
@@ -33,6 +34,14 @@ func main() {
 	c := passenger.Context{}
 	factory := passenger.CreateFactory(c)
 	server := factory.FindInstance()
+	for i := 0; i < 20; i++ {
+		if server != nil {
+			break
+		}
+		level.Info(logger).Log(logging.Msg("passenger not found. wait 200ms."))
+		time.Sleep(time.Millisecond * 200)
+		server = factory.FindInstance()
+	}
 	if server == nil {
 		level.Error(logger).Log(logging.Msg("passenger not found."))
 		return

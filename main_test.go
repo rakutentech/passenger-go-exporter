@@ -47,7 +47,7 @@ func TestRunNotFound(t *testing.T) {
 	select {
 	case <-statusc:
 		assert.True(t, true)
-	case <-time.After(3 * time.Second):
+	case <-time.After(5 * time.Second):
 		assert.Fail(t, "main is not stopped", "main is not stopped")
 	}
 }

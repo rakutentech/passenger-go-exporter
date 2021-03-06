@@ -1,0 +1,17 @@
+bases:
+  - ../base
+namespace: test
+patchesJson6902:
+- target:
+    group: apps
+    version: v1
+    kind: Deployment
+    name: example
+  path: patch.yaml
+images:
+  - name: example
+    newName: ghcr.io/rakutentech/passenger-go-exporter/passenger-app
+    newTag: 6.0.5
+  - name: passenger-exporter
+    newName: passenger-go-exporter
+    newTag: test
