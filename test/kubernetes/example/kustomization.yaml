@@ -2,8 +2,8 @@ bases:
   - ../base
 images:
   - name: example
-    newName: PLEASE_CHANGE_VALUE
-    newTag: PLEASE_CHANGE_VALUE
+    newName: ghcr.io/rakutentech/passenger-go-exporter/passenger-app
+    newTag: 6.0.5
   - name: passenger-exporter
     newName: ghcr.io/rakutentech/passenger-go-exporter 
     newTag: v1.1.0
