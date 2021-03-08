@@ -43,7 +43,7 @@ services:
     depends_on:
       - passenger-app
   passenger-app:
-    build: ./passenger-app
+    image: ghcr.io/rakutentech/passenger-go-exporter/passenger-app:6.0.5
     ports:
       - 3000:3000
     environment:
