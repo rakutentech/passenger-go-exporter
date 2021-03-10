@@ -1,0 +1,29 @@
+name: e2e
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+    - main
+
+jobs:
+  kind:
+    name: e2e
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        passenger-version:
+          - 6.0.5
+          - 6.0.6
+          - 6.0.7
+    steps:
+    - uses: actions/checkout@v2
+    - uses: engineerd/setup-kind@v0.5.0
+    - name: Kind Load Image
+      run: |
+        docker build -t passenger-go-exporter:test .
+        kind load docker-image passenger-go-exporter:test
+    - name: Testing
+      run: |
+        export PASSENGER_VERSION=${{ matrix.passenger-version }}
+        ./test/kubernetes/run.sh
