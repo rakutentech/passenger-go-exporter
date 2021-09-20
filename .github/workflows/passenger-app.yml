@@ -14,9 +14,9 @@ jobs:
     strategy:
       matrix:
         passenger-version:
-          - 6.0.5
-          - 6.0.6
-          - 6.0.7
+          - 6.0.8
+          - 6.0.9
+          - 6.0.10
     steps:
     - name: checkout
       uses: actions/checkout@v2
