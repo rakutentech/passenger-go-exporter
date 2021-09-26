@@ -10,7 +10,14 @@ kubectl create namespace test
 kubectl apply -k ${REPO_HOME}/test/kubernetes/test
 kubectl set image -n test deployment/example example=ghcr.io/rakutentech/passenger-go-exporter/passenger-app:$PASSENGER_VERSION
 kubectl scale -n test deploy/example --replicas=1
-kubectl -n test rollout status deploy/example
+#kubectl -n test rollout status deploy/example
+for CNT in `seq 30` ; do
+  kubectl get pod -n test
+  kubectl describe pod -n test
+  echo "-----------------------"
+  sleep 10
+done
+
 
 POD_IP=$(kubectl get pod -n test -o=jsonpath='{.items[0].status.podIP}')
 
