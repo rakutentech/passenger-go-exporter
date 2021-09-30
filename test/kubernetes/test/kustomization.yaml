@@ -11,7 +11,7 @@ patchesJson6902:
 images:
   - name: example
     newName: ghcr.io/rakutentech/passenger-go-exporter/passenger-app
-    newTag: 6.0.5
+    newTag: 6.0.10
   - name: passenger-exporter
     newName: passenger-go-exporter
     newTag: test

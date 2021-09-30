@@ -3,7 +3,7 @@ bases:
 images:
   - name: example
     newName: ghcr.io/rakutentech/passenger-go-exporter/passenger-app
-    newTag: 6.0.5
+    newTag: 6.0.10
   - name: passenger-exporter
     newName: ghcr.io/rakutentech/passenger-go-exporter 
-    newTag: v1.1.0
+    newTag: v1.2.0
