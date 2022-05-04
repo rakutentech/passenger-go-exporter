@@ -4,7 +4,7 @@ We develop inside a container by using [VS Code Remote Container](https://code.v
 
 ## Prerequirements
 
-- [VSCode](https://github.com/microsoft/vscode) Version: 1.46.1, or later.
+- [VSCode](https://github.com/microsoft/vscode) Version: 1.63.2, or later.
 - [VSCode Remote Container](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) Version: Depends on VSCode. Latest version recommended
 - [Docker desktop](https://www.docker.com/products/docker-desktop): 2.3.0.4, or later.
 
@@ -22,7 +22,7 @@ Ensure that no error and no warning.
 ```bash
 go build . 
 go fmt ./...  
-golint ./...
+golangci-lint run 
 go test -v ./...
 ```
 
