@@ -6,4 +6,4 @@ images:
     newTag: 6.0.13
   - name: passenger-exporter
     newName: ghcr.io/rakutentech/passenger-go-exporter 
-    newTag: v1.2.0
+    newTag: v1.2.3

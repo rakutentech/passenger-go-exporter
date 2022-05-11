@@ -56,7 +56,7 @@ linters-settings:
     # [deprecated] comma-separated list of pairs of the form pkg:regex
     # the regex is used to ignore names within pkg. (default "fmt:.*").
     # see https://github.com/kisielk/errcheck#the-deprecated-method for details
-    ignore: fmt:.*,github.com/go-kit/kit/log:.*,github.com/prometheus/common/promlog:.*
+    ignore: fmt:.*,github.com/go-kit/log:.*,github.com/prometheus/common/promlog:.*
 
   gocognit:
     # minimal code complexity to report, 30 by default (but we recommend 10-20)
