@@ -6,7 +6,7 @@ Implemented in golang, keeps memory consumption below 100MB, and runs on CPU 0.0
 
 ## Supported version
 
-- golang: 1.18
+- golang: 1.19
 - Passenger: 6.0.11, or later.
 
 All other versions have not been tested.
@@ -39,7 +39,7 @@ Passenger Go Exporter side defines similarly.
             - mountPath: /tmp/ruby
               name: tmp
         - name: passenger-exporter
-          image: ghcr.io/rakutentech/passenger-go-exporter:v1.2.3
+          image: ghcr.io/rakutentech/passenger-go-exporter:v1.4.2
           imagePullPolicy: IfNotPresent
           env:
             - name: PASSENGER_INSTANCE_REGISTRY_DIR
