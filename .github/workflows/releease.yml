@@ -11,27 +11,33 @@ jobs:
   build:
     name: build
     runs-on: ubuntu-latest
+    env:
+      COSIGN_EXPERIMENTAL: "1"
     steps:
-    - name: checkout
-      uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
+
+    - name: Install cosign
+      uses: sigstore/cosign-installer@v2
 
     - name: Set env
       run: echo "TAG_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
+      uses: docker/setup-buildx-action@v2
 
     - name: Login to GitHub Container Registry
-      uses: docker/login-action@v1
+      uses: docker/login-action@v2
       with:
         registry: ghcr.io
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.CR_PAT }}
 
     - name: Build and push
-      uses: docker/build-push-action@v2
+      id: build-and-push
+      uses: docker/build-push-action@v3
       with:
         context: .
         push: true
@@ -42,22 +48,45 @@ jobs:
           ghcr.io/${{ github.repository }}:latest
           ghcr.io/${{ github.repository }}:${{ env.TAG_VERSION }}
 
+    - name: Write signing key
+      run: echo "${{ secrets.COSIGN_PRIVATE_KEY }}" > cosign.key
+      shell: bash
+
+    - name: Generate SBOM
+      uses: anchore/sbom-action@v0
+      with:
+        image: ghcr.io/${{ github.repository }}:${{ env.TAG_VERSION }}
+        artifact-name: sbom.spdx.json
+        output-file: sbom.spdx.json
+
+    - name: Attach SBOM file in image
+      run: |
+        cosign attest --key cosign.key --type spdx --predicate sbom.spdx.json ghcr.io/${{ github.repository }}:${{ env.TAG_VERSION }}@${{ steps.build-and-push.outputs.digest }}
+        cosign attest --key cosign.key --type spdx --predicate sbom.spdx.json ghcr.io/${{ github.repository }}:latest@${{ steps.build-and-push.outputs.digest }}
+      shell: bash
+
+    - name: Published a signed image
+      env:
+        COSIGN_EXPERIMENTAL: "1"
+      run: |
+        cosign sign --key cosign.key ghcr.io/${{ github.repository }}:${{ env.TAG_VERSION }}@${{ steps.build-and-push.outputs.digest }}
+        cosign sign --key cosign.key ghcr.io/${{ github.repository }}:latest@${{ steps.build-and-push.outputs.digest }}
   release:
     name: release
     needs: build
     runs-on: ubuntu-latest
     steps:
     - name: checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: Set up Go
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@v3
       with:
         go-version: 1.19
 
     - name: Run GoReleaser
-      uses: goreleaser/goreleaser-action@v2
+      uses: goreleaser/goreleaser-action@v3
       with:
         version: latest
         args: release --rm-dist
