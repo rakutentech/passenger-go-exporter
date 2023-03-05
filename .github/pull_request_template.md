@@ -8,7 +8,7 @@ Add links to github/jira issues, design documents and other relevant resources (
 
 #### Self Checklist
 
-- [ ] `go fmt ./...` is done.
-- [ ] `golint ./...` is nothing message.
-- [ ] `go test -v ./...` is all success.
+- [ ] `go fmt ./...` was done.
+- [ ] `golangci-lint run` ran with nothing warnings and errors.
+- [ ] `go test -v ./...` was all success.
 

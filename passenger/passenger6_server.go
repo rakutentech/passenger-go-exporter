@@ -76,9 +76,9 @@ func (s *Passenger6Server) connect() (net.Conn, error) {
 // NewInstance implements the passenger.ServerFactory interface.
 //
 // If homedir satisfies the following conditions, instance will be returned.
-//  - homedir has creation_finalized file.
-//  - homedir has read_only_admin_password.txt file.
-//  - can connect unix domain socket with /agents.s/core_api.
+//   - homedir has creation_finalized file.
+//   - homedir has read_only_admin_password.txt file.
+//   - can connect unix domain socket with /agents.s/core_api.
 func (f *Passenger6ServerFactory) NewInstance(homedir string) Server {
 	state := filepath.Join(homedir, "creation_finalized")
 	if _, err := os.Stat(state); err != nil {
