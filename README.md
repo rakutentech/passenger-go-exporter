@@ -6,7 +6,7 @@ Implemented in golang, keeps memory consumption below 100MB, and runs on CPU 0.0
 
 ## Supported version
 
-- golang: 1.19
+- golang: 1.20
 - Passenger: 6.0.11, or later.
 
 All other versions have not been tested.
