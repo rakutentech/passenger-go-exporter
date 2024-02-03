@@ -6,6 +6,7 @@ REPO_HOME=$(git rev-parse --show-toplevel)
 kubectl delete namespace test --ignore-not-found=true --wait=true
 kubectl create namespace test
 
+
 # deploy
 kubectl apply -k ${REPO_HOME}/test/kubernetes/test
 kubectl set image -n test deployment/example example=ghcr.io/rakutentech/passenger-go-exporter/passenger-app:$PASSENGER_VERSION

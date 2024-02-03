@@ -44,7 +44,8 @@ services:
     depends_on:
       - passenger-app
   passenger-app:
-    image: ghcr.io/rakutentech/passenger-go-exporter/passenger-app:6.0.14
+    image: ghcr.io/rakutentech/passenger-go-exporter/passenger-app:6.0.20
+    platform: linux/x86_64
     ports:
       - 3000:3000
     environment:
