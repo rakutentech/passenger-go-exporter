@@ -1,4 +1,4 @@
-FROM golang:1.20 AS builder
+FROM golang:1.22 AS builder
 WORKDIR /go/src/github.com/rakutentech/passenger-go-exporter
 
 COPY go.mod go.sum ./
