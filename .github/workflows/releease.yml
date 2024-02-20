@@ -61,16 +61,16 @@ jobs:
 
     - name: Attach SBOM file in image
       run: |
-        cosign attest --key cosign.key --type spdx --predicate sbom.spdx.json ghcr.io/${{ github.repository }}:${{ env.TAG_VERSION }}@${{ steps.build-and-push.outputs.digest }}
-        cosign attest --key cosign.key --type spdx --predicate sbom.spdx.json ghcr.io/${{ github.repository }}:latest@${{ steps.build-and-push.outputs.digest }}
+        cosign attest --yes --key cosign.key --type spdx --predicate sbom.spdx.json ghcr.io/${{ github.repository }}:${{ env.TAG_VERSION }}@${{ steps.build-and-push.outputs.digest }}
+        cosign attest --yes --key cosign.key --type spdx --predicate sbom.spdx.json ghcr.io/${{ github.repository }}:latest@${{ steps.build-and-push.outputs.digest }}
       shell: bash
 
     - name: Published a signed image
       env:
         COSIGN_EXPERIMENTAL: "1"
       run: |
-        cosign sign --key cosign.key ghcr.io/${{ github.repository }}:${{ env.TAG_VERSION }}@${{ steps.build-and-push.outputs.digest }}
-        cosign sign --key cosign.key ghcr.io/${{ github.repository }}:latest@${{ steps.build-and-push.outputs.digest }}
+        cosign sign --yes --key cosign.key ghcr.io/${{ github.repository }}:${{ env.TAG_VERSION }}@${{ steps.build-and-push.outputs.digest }}
+        cosign sign --yes --key cosign.key ghcr.io/${{ github.repository }}:latest@${{ steps.build-and-push.outputs.digest }}
   release:
     name: release
     needs: build
