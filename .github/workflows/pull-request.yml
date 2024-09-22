@@ -29,7 +29,7 @@ jobs:
       if: steps.cache.outputs.cache-hit != 'true'
       run: go mod download
     - name: build
-      run: go build . 
+      run: go build .
     - name: test
       run: go test -json ./... > test.json
     - name: annotate tests
