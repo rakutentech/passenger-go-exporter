@@ -5,6 +5,7 @@ metadata:
   labels:
     app: example
 spec:
+  replicas: 0
   strategy:
     rollingUpdate:
       maxUnavailable: 25%
@@ -19,60 +20,61 @@ spec:
       labels:
         app: example
     spec:
+
       volumes:
-        - name: tmp
-          emptyDir: {}
+      - name: tmp
+        emptyDir: {}
       containers:
-        - name: example
-          image: example
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 3000
-              name: http
-              protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 3000
-          readinessProbe:
-            timeoutSeconds: 2
-            httpGet:
-              path: /
-              port: 3000
-          env:
-            - name: PASSENGER_INSTANCE_REGISTRY_DIR
-              value: /tmp/ruby
-          volumeMounts:
-            - mountPath: /tmp/ruby
-              name: tmp
-        - name: passenger-exporter
-          image: passenger-exporter
-          imagePullPolicy: IfNotPresent
-          env:
-            - name: PASSENGER_INSTANCE_REGISTRY_DIR
-              value: /tmp/ruby
-          ports:
-            - containerPort: 9768
-              name: http
-              protocol: TCP
-          livenessProbe:
-            initialDelaySeconds: 10
-            timeoutSeconds: 2
-            httpGet:
-              path: /health
-              port: 9768
-          readinessProbe:
-            timeoutSeconds: 1
-            httpGet:
-              path: /health
-              port: 9768
-          resources:
-            limits:
-              cpu: 20m
-              memory: 60Mi
-            requests:
-              cpu: 20m
-              memory: 60Mi
-          volumeMounts:
-            - mountPath: /tmp/ruby
-              name: tmp
+      - name: example
+        image: example
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+          name: http
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+        readinessProbe:
+          timeoutSeconds: 2
+          httpGet:
+            path: /
+            port: 3000
+        env:
+        - name: PASSENGER_INSTANCE_REGISTRY_DIR
+          value: /tmp/ruby
+        volumeMounts:
+        - mountPath: /tmp/ruby
+          name: tmp
+      - name: passenger-exporter
+        image: passenger-exporter
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: PASSENGER_INSTANCE_REGISTRY_DIR
+          value: /tmp/ruby
+        ports:
+        - containerPort: 9768
+          name: http
+          protocol: TCP
+        livenessProbe:
+          initialDelaySeconds: 10
+          timeoutSeconds: 2
+          httpGet:
+            path: /health
+            port: 9768
+        readinessProbe:
+          timeoutSeconds: 1
+          httpGet:
+            path: /health
+            port: 9768
+        resources:
+          limits:
+            cpu: 20m
+            memory: 60Mi
+          requests:
+            cpu: 20m
+            memory: 60Mi
+        volumeMounts:
+        - mountPath: /tmp/ruby
+          name: tmp
