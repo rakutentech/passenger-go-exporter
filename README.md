@@ -91,6 +91,9 @@ But this could be changed by args defined.
 |Name|Description|Default|
 |:---|:---|:---|
 |-port|Listening port number|9768|
+|-logfmt|Output log format (logfmt or json)|logfmt|
+|-loglevel|Output log level (debug, info, warn, error)|info|
+|-timeout|Maximum time (in seconds) to wait for passenger instance|30|
 
 ## Collect Metrics
 

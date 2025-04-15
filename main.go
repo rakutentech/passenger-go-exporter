@@ -22,6 +22,7 @@ var (
 	listenPort = flag.Int("port", 9768, "Listening port number.")
 	logfmt     = flag.String("logfmt", "logfmt", "PromLogFormat[logfmt|json].")
 	loglevel   = flag.String("loglevel", "info", "PromLogLevel[debug, info, warn, error].")
+	timeout    = flag.Int("timeout", 30, "Maximum time (in seconds) to wait for passenger instance.")
 )
 
 func main() {
@@ -29,12 +30,16 @@ func main() {
 
 	logger := logging.NewLogger(*logfmt, *loglevel)
 
-	// Search passenge instance.
+	// Search passenger instance.
 	_ = level.Info(logger).Log(logging.Msg("Searching passenger instance."))
 	c := passenger.Context{}
 	factory := passenger.CreateFactory(c)
 	server := factory.FindInstance()
-	for i := 0; i < 20; i++ {
+
+	// Calculate max retries based on timeout (each retry is 200ms)
+	maxRetries := (*timeout * 1000) / 200
+
+	for i := 0; i < maxRetries; i++ {
 		if server != nil {
 			break
 		}
