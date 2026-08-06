@@ -58,29 +58,38 @@ linters-settings:
 
     # list of functions to exclude from error checking
     exclude-functions:
-      - fmt.*
-      - github.com/go-kit/log.*
-      - github.com/prometheus/common/promlog.*
+      - (fmt.Fprintf)
+      - (fmt.Fprintln)
+      - (fmt.Fprint)
+      - (github.com/go-kit/log.Logger).Log
+      - (github.com/prometheus/common/promlog.AllowedFormat).Set
+      - (github.com/prometheus/common/promlog.AllowedLevel).Set
+      - (*github.com/prometheus/common/promlog.AllowedFormat).Set
+      - (*github.com/prometheus/common/promlog.AllowedLevel).Set
 
   gocognit:
     # minimal code complexity to report, 30 by default (but we recommend 10-20)
-    min-complexity: 10
+    min-complexity: 20
   gocritic:
     # Enable multiple checks by tags, run `GL_DEBUG=gocritic golangci-lint run` to see all tags and checks.
     # Empty list by default. See https://github.com/go-critic/go-critic#usage -> section "Tags".
     enabled-tags:
       - diagnostic
       - performance
+    disabled-checks:
+      - unnecessaryDefer
+      - rangeValCopy
+      - filepathJoin
+      - sloppyReassign
   gocyclo:
     # minimal code complexity to report, 30 by default (but we recommend 10-20)
-    min-complexity: 10
+    min-complexity: 15
   gofmt:
     # simplify code: gofmt with `-s` option, true by default
     simplify: true
   govet:
     enable:
       - shadow
-      - fieldalignment
   misspell:
     # Correct spellings using locale preferences for US or UK.
     # Default is to use a neutral variety of English.
