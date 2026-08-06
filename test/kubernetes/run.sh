@@ -16,7 +16,7 @@ kubectl -n test rollout status deploy/example
 POD_IP=$(kubectl get pod -n test -o=jsonpath='{.items[0].status.podIP}')
 
 # test
-kubectl run curl -it --rm -n test --restart=Never --image=curlimages/curl:latest -- http://${POD_IP}:9768/metrics > metrics.txt
+kubectl run curl -i --rm -n test --restart=Never --image=curlimages/curl:latest -- http://${POD_IP}:9768/metrics > metrics.txt
 metrics=(
   "passenger_go_process_count"
   "passenger_go_process_processed"
