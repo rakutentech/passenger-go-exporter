@@ -4,7 +4,7 @@ This file provides repository-specific guidance for coding agents working in `ra
 
 ## Repository Overview
 
-- Language: Go (target version: 1.23)
+- Language: Go (target version: 1.23.1)
 - Purpose: Prometheus exporter for Passenger application metrics
 - Entry point: `main.go`
 - Core packages:
@@ -32,11 +32,9 @@ For full coverage report:
 go test -coverprofile=cover.out -cover ./... && go tool cover -html=cover.out -o cover.html
 ```
 
-Optional e2e tests require environment setup:
+Optional e2e tests require environment setup (ensure the Passenger instance registry directory is available at `/sock`):
 
-```bash
-E2E=true go test ./test/e2e/
-```
+    E2E=true go test ./test/e2e/
 
 ## Change Guidelines
 
