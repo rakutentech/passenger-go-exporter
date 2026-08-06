@@ -37,7 +37,44 @@ func TestRun(t *testing.T) {
 	checkMetrics(t, url)
 }
 
+func TestTimeoutFlag(t *testing.T) {
+	// Save original args and restore them after the test
+	oldArgs := os.Args
+	defer func() { os.Args = oldArgs }()
+
+	tests := []struct {
+		name        string
+		timeoutFlag int
+	}{
+		{"very short timeout", 1},
+		{"short timeout", 2},
+		{"default timeout", 3},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			os.Args = []string{"cmd", fmt.Sprintf("-timeout=%d", tc.timeoutFlag)}
+			os.Setenv("PASSENGER_INSTANCE_REGISTRY_DIR", "/tmp")
+
+			statusc := make(chan string, 1)
+			runExporter(t, statusc)
+
+			select {
+			case <-statusc:
+				assert.True(t, true)
+			case <-time.After(time.Duration(tc.timeoutFlag)*time.Second + 2*time.Second):
+				assert.Fail(t, "main did not stop within expected timeout")
+			}
+		})
+	}
+}
+
 func TestRunNotFound(t *testing.T) {
+	// Save original args and restore them after the test
+	oldArgs := os.Args
+	defer func() { os.Args = oldArgs }()
+
+	os.Args = []string{"cmd", "-timeout=5"} // Use a shorter timeout for this test
 	os.Setenv("PASSENGER_INSTANCE_REGISTRY_DIR", "/tmp")
 
 	statusc := make(chan string, 1) // startup message channel.
@@ -47,7 +84,7 @@ func TestRunNotFound(t *testing.T) {
 	select {
 	case <-statusc:
 		assert.True(t, true)
-	case <-time.After(5 * time.Second):
+	case <-time.After(7 * time.Second): // 5s timeout + 2s buffer
 		assert.Fail(t, "main is not stopped", "main is not stopped")
 	}
 }
