@@ -56,10 +56,11 @@ linters-settings:
     # default is false: such cases aren't reported by default.
     check-blank: true
 
-    # [deprecated] comma-separated list of pairs of the form pkg:regex
-    # the regex is used to ignore names within pkg. (default "fmt:.*").
-    # see https://github.com/kisielk/errcheck#the-deprecated-method for details
-    ignore: fmt:.*,github.com/go-kit/log:.*,github.com/prometheus/common/promlog:.*
+    # list of functions to exclude from error checking
+    exclude-functions:
+      - fmt.*
+      - github.com/go-kit/log.*
+      - github.com/prometheus/common/promlog.*
 
   gocognit:
     # minimal code complexity to report, 30 by default (but we recommend 10-20)
@@ -77,9 +78,9 @@ linters-settings:
     # simplify code: gofmt with `-s` option, true by default
     simplify: true
   govet:
-    # report about shadowed variables
-    shadow: true
-    fieldalignment: true
+    enable:
+      - shadow
+      - fieldalignment
   misspell:
     # Correct spellings using locale preferences for US or UK.
     # Default is to use a neutral variety of English.
