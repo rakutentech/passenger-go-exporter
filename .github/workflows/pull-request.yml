@@ -50,3 +50,5 @@ jobs:
         go-version: '1.25'
         cache: false
     - uses: golangci/golangci-lint-action@v6
+      with:
+        version: v2.12.2
